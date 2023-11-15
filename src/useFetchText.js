@@ -13,7 +13,7 @@ export function useFetchText() {
       try {
         // Replace this URL with the URL of your Flask server's route for downloading the Excel file
         const fileUrl = 'http://192.168.0.19:5000/text_data.xlsx';
-        
+        const textPath = 'http://192.168.0.19:5000/text/'
         const response = await fetch(fileUrl);
         const arrayBuffer = await response.arrayBuffer();
         const workbook = XLSX.read(arrayBuffer, { type: 'buffer' });
@@ -27,7 +27,8 @@ export function useFetchText() {
           subtype: entry[3],
           content: entry[1],
           active:entry[4],
-          tags:entry[5]
+          tags:entry[5],
+          textUrl:textPath + entry[1],
         }));
         setTexts(textItems);
       } catch (error) {

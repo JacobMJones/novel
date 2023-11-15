@@ -4,12 +4,9 @@ import pandas as pd
 import os
 
 app = Flask(__name__, static_folder='images')
-
-
 CORS(app, resources={r"/*": {"origins": "*"}})
 UPLOAD_FOLDER = './' 
 ALLOWED_EXTENSIONS = {'xlsx'}
-
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/images/<filename>')
@@ -74,28 +71,3 @@ def update_excel():
         return jsonify({"error": f"Error updating the file: {e}"}), 500
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-
-
-# from flask import Flask, request, jsonify
-# import openpyxl
-
-# app = Flask(__name__)
-
-# @app.route('/update-excel', methods=['POST'])
-# def update_excel():
-#     data = request.json
-#     filename = 'path_to_your_excel_file.xlsx'  # Update with the path to your Excel file
-#     workbook = openpyxl.load_workbook(filename)
-#     sheet = workbook.active
-
-#     # Assuming the 'file' is the primary key to find the row to update
-#     for row in sheet.iter_rows(min_row=2):  # Assuming row 1 is the header
-#         if row[0].value == data['file']:
-#             row[9].value = data['active']  # Assuming 'active' is in column J
-#             break
-
-#     workbook.save(filename)
-#     return jsonify(success=True)
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
