@@ -27,7 +27,6 @@ function InfiniteScrollComponent() {
               const image = images[randomIndex];
               newItems.push({
                 type: 'image',
-                src: `./images_src/${image.file}`,
                 file: image.file,
                 subtype: image.subtype,
                 tags: image.tags,
