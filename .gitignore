@@ -4,10 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-/pythonserver/text_data.xlsx
-/pythonserver/image_data.xlsx
-/pythonserver/images
-/pythonserver/text
+/README.md
+
 # testing
 /coverage
 
@@ -15,7 +13,11 @@
 # production
 /build
 /src/reportWebVitals.js
-
+/pythonserver/text_data.xlsx
+/pythonserver/image_data.xlsx
+/pythonserver/images
+/pythonserver/text
+/pythonserver/autoutils/results
 # misc
 .DS_Store
 .env.local

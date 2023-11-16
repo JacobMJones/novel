@@ -34,7 +34,7 @@ def load_or_create_workbook(file_path: str):
         # If the workbook doesn't exist, create it with the specified headers
         workbook = px.Workbook()
         sheet = workbook.active
-        headers = ['ID', 'Content', 'Type', 'Subtype', 'Priority', 'Tags', 'Timestamp']
+        headers = ['id', 'content', 'type', 'subtype', 'votes', 'tags', 'active', 'timestamp']
         sheet.append(headers)
 
     return workbook, sheet
@@ -63,7 +63,7 @@ def main():
             timestamp = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
 
             # Load or create workbook
-            file_path = 'text_data.xlsx'
+            file_path = '../text_data.xlsx'
             workbook, sheet = load_or_create_workbook(file_path)
 
             # Get the next ID
