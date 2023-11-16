@@ -11,8 +11,10 @@
 # testing
 /coverage
 
+/src/setupTests.js
 # production
 /build
+/src/reportWebVitals.js
 
 # misc
 .DS_Store

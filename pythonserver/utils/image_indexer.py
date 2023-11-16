@@ -3,7 +3,7 @@ from datetime import datetime
 from PIL import Image
 from openpyxl import load_workbook, Workbook
 
-folder_path = '../images_src'  # Replace with your folder path
+folder_path = '../images'  # Replace with your folder path
 file_names = os.listdir(folder_path)
 
 excel_file = '../image_data.xlsx'
@@ -21,7 +21,8 @@ else:
 # Read existing file names from the Excel sheet to avoid duplicates
 seen_files = set()
 for row in ws.iter_rows(min_row=2, max_col=1, values_only=True):
-    seen_files.add(row[1])
+    seen_files.add(row[0])
+
 
 # Append data for new images with a timestamp
 for file_name in file_names:

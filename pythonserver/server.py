@@ -2,6 +2,8 @@ from flask import Flask, jsonify, send_file,send_from_directory, request, redire
 from flask_cors import CORS, cross_origin
 import pandas as pd
 import os
+import time
+
 
 app = Flask(__name__, static_folder='images')
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -70,4 +72,6 @@ def update_excel():
     except Exception as e:
         return jsonify({"error": f"Error updating the file: {e}"}), 500
 if __name__ == '__main__':
+
     app.run(host='0.0.0.0', port=5000)
+  
