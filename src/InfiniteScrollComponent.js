@@ -13,7 +13,7 @@ function InfiniteScrollComponent() {
   const { texts } = useFetchText()
   const { images } = useFetchImages()
 
-  const fetchData = () => {
+  const refreshItems= () => {
     try {
       const newItems = [];
       for (let i = 0; i < 5; i++) {
@@ -61,8 +61,8 @@ function InfiniteScrollComponent() {
   };
 
   useEffect(() => {
-    fetchData();
-  }, [images]);
+    refreshItems();
+  }, [images, texts]);
 
   const randomComponent = (item, index) => {
     if (item.active === 1) {
@@ -73,12 +73,12 @@ function InfiniteScrollComponent() {
       }
     }
   };
-  console.log(items)
+
   return (
     <div>
       <InfiniteScroll
         dataLength={items.length}
-        next={fetchData}
+        next={refreshItems}
         hasMore={true}
         loader={<h4>Loading...</h4>}
       >
