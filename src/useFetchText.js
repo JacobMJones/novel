@@ -26,8 +26,9 @@ export function useFetchText() {
           type: entry[2],
           subtype: entry[3],
           content: entry[1],
-          active:entry[4],
+          votes:entry[4],
           tags:entry[5],
+          active:entry[6],
           textUrl:textPath + entry[1],
         }));
         setTexts(textItems);

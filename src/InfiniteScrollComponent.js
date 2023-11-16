@@ -41,6 +41,7 @@ function InfiniteScrollComponent() {
             if (texts.length) {
               const randomIndex = Math.floor(Math.random() * texts.length);
               const text = texts[randomIndex];
+              console.log('te', text)
               newItems.push({
                 content: text.content,
                 type: text.type, subtype: text.subtype,
