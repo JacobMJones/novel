@@ -1,7 +1,9 @@
 from diffusers import DiffusionPipeline
 import torch
 import os
-
+import pandas as pd
+import random
+import uuid
 # load both base & refiner
 base = DiffusionPipeline.from_pretrained(
     "stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16, variant="fp16", use_safetensors=True
@@ -19,13 +21,21 @@ refiner = DiffusionPipeline.from_pretrained(
 
 refiner.to("cuda")
 
-# Define how many steps and what % of steps to be run on each experts (80/20) here
+# Define how many steps 
 n_steps = 30
+# ratio between base and refinement, higher number is more base
 high_noise_frac = 0.6
 
-prompt = "Joe Sacco, Daniel Clowes, Moebius, illustration, dramatic, exploding, tree of life"
+#Reading the Excel file
+excel_path = os.path.join(os.path.dirname(__file__), '..', 'text_data.xlsx')
+df = pd.read_excel(excel_path)
+# Selecting a random row from the 'content' column
+prompt = random.choice(df['content'].dropna()) + ", Joe Sacco, Daniel Clowes, Moebius, illustration"
+print("Prompt:",prompt)
 
-# run both experts
+# prompt = "Joe Sacco, Daniel Clowes, Moebius, illustration, dramatic, exploding, tree of life"
+
+# run base and refiner
 image = base(
     prompt=prompt,
     num_inference_steps=n_steps,
@@ -40,8 +50,10 @@ image = refiner(
 ).images[0]
 
 # Define the folder and filename
-folder_path = 'results'  # Replace with your actual folder path
-file_name = 'please.png'
+folder_path = 'results'  
+
+random_string = str(uuid.uuid4())
+file_name = random_string + '.png'
 
 # Create the folder if it doesn't exist
 if not os.path.exists(folder_path):

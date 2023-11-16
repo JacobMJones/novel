@@ -17,9 +17,7 @@ function InfiniteScrollComponent() {
     try {
       const newItems = [];
       for (let i = 0; i < 5; i++) {
-
         const itemType = Math.floor(Math.random() * 2);
-
         switch (itemType) {
           case 0: // Image
             if (images.length) {
