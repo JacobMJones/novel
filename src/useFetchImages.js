@@ -33,7 +33,7 @@ export function useFetchImages() {
           timestamp: entry[11],
           imageUrl:imagePath + entry[1],
         }));
-        console.log(imageItems)
+        console.log('image items', imageItems)
         setImages(imageItems);
       } catch (error) {
         setError(error);

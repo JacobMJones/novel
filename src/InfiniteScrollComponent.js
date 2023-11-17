@@ -13,26 +13,32 @@ function InfiniteScrollComponent() {
   const { texts } = useFetchText()
   const { images } = useFetchImages()
 
+  
   const refreshItems= () => {
+    console.log(items)
     try {
       const newItems = [];
       for (let i = 0; i < 5; i++) {
-        const itemType = Math.floor(Math.random() * 2);
+        const itemType = Math.floor(Math.random() * 1);
         switch (itemType) {
           case 0: // Image
             if (images.length) {
               const randomIndex = Math.floor(Math.random() * images.length);
               const image = images[randomIndex];
-              newItems.push({
-                type: 'image',
-                file: image.file,
-                subtype: image.subtype,
-                tags: image.tags,
-                votes: image.votes,
-                active: image.active,
-                id:image.id,
-                imageUrl:image.imageUrl
-              });
+
+              if(image.active = 1){
+                newItems.push({
+                  type: 'image',
+                  file: image.file,
+                  subtype: image.subtype,
+                  tags: image.tags,
+                  votes: image.votes,
+                  active: image.active,
+                  id:image.id,
+                  imageUrl:image.imageUrl
+                });
+              }
+
             }
             break;
           case 1: // Text

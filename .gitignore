@@ -16,8 +16,12 @@
 /pythonserver/text_data.xlsx
 /pythonserver/image_data.xlsx
 /pythonserver/images
+/pythonserver/images2
 /pythonserver/text
 /pythonserver/autoutils/results
+
+/pythonserver/autoutils/model_notes.txt
+/pythonserver/autoutils/prompts.txt
 # misc
 .DS_Store
 .env.local
