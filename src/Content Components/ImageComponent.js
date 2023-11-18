@@ -36,6 +36,7 @@ function ImageComponent({ item, alt }) {
     .catch(error => {
       console.error('Error updating row:', error);
     });
+    setIsCellModalOpen(false);
   };
 
   const handleGenerateCellModal = () => {
@@ -63,7 +64,7 @@ function ImageComponent({ item, alt }) {
       />
       {isCellModalOpen && (
         <CellModal onClose={handleCloseCellModal}>
-        <button onClick={handleInactivate}>Inactivate</button>
+        <button style={{fontSize:'5vw'}} onClick={handleInactivate}>Inactivate</button>
         <p/>
         <button onClick={handleGenerateCellModal}>Generate</button>
         <p/>

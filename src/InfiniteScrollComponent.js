@@ -25,7 +25,7 @@ function InfiniteScrollComponent() {
             if (images.length) {
               const randomIndex = Math.floor(Math.random() * images.length);
               const image = images[randomIndex];
-
+              console.log('image', image)
               if(image.active = 1){
                 newItems.push({
                   type: 'image',

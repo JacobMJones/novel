@@ -25,9 +25,9 @@
   
   .modal-content {
     background-color: white;
-    padding: 20px;
+    padding: 5vh;
     border-radius: 5px;
-    width: 30%;
+    width: 50%;
     height: 50%;
   }
   .poemElement {

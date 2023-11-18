@@ -16,10 +16,11 @@ export function useFetchImages() {
         const workbook = XLSX.read(arrayBuffer, { type: 'buffer' });
         const worksheet = workbook.Sheets[workbook.SheetNames[0]];
         const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-        console.log(jsonData.slice(1)[0])
-        // Exclude the first row which contains header data
-        const imageItems = jsonData.slice(1).map((entry) => ({
-          id:entry[0],
+        console.log('slice', jsonData.slice(1)[0]);
+        
+        // Filter the entries where 'active' equals 1 before mapping
+        const activeImageItems = jsonData.slice(1).filter(entry => entry[10] === 1).map((entry) => ({
+          id: entry[0],
           file: entry[1],
           width: entry[2],
           height: entry[3],
@@ -31,10 +32,11 @@ export function useFetchImages() {
           votes: entry[9],
           active: entry[10],
           timestamp: entry[11],
-          imageUrl:imagePath + entry[1],
+          imageUrl: imagePath + entry[1],
         }));
-        console.log('image items', imageItems)
-        setImages(imageItems);
+        
+        console.log('active image items', activeImageItems);
+        setImages(activeImageItems);
       } catch (error) {
         setError(error);
       } finally {
