@@ -20,8 +20,8 @@ dataframe = pd.read_excel(excel_path)
 folder_path = '../images'
 
 #set parameters
-n_steps = 60
-high_noise_frac = 0.5
+n_steps = 20
+high_noise_frac = 0.75
 
 while True:
 
@@ -29,12 +29,12 @@ while True:
     #prompt = random.choice(dataframe['content'].dropna()) + ", Joe Sacco,Moebius, illustration, simple, beautiful, masterpiece"
 
     #Static Prompt
-    prompt = "Joe Sacco, Moebius, illustration, simple, beautiful, masterpiece"
+    prompt = "ghibli style, Joe Sacco, Moebius, Daniel Clowes, illustration, simple, beautiful, portrait, kind face, masterpiece"
 
     #Dynamic Prompt --this will use random selection, Mad Lib style, to make prompts
     
 
-    negative_prompt = 'bad anatomy, blurry, child, young, ugly, low quality'
+    negative_prompt = 'bad anatomy, blurry, child, young, ugly, low quality, soft, soft blurry'
 
 
     image = base(
