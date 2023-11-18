@@ -39,7 +39,7 @@ def upload_file(filename):
     return '''
     <!doctype html>
     <title>Upload new Excel file</title>
-    <h1>Upload new Excel file</h1>
+    <h1>Upload Excel file</h1>
     <form method=post enctype=multipart/form-data>
       <input type=file name=file>
       <input type=submit value=Upload>
@@ -72,6 +72,5 @@ def update_excel():
     except Exception as e:
         return jsonify({"error": f"Error updating the file: {e}"}), 500
 if __name__ == '__main__':
-
     app.run(host='0.0.0.0', port=5000)
   
