@@ -20,7 +20,7 @@ dataframe = pd.read_excel(excel_path)
 folder_path = '../images'
 
 #set parameters
-n_steps = 20
+n_steps = 80
 high_noise_frac = 0.75
 
 while True:
@@ -29,12 +29,12 @@ while True:
     #prompt = random.choice(dataframe['content'].dropna()) + ", Joe Sacco,Moebius, illustration, simple, beautiful, masterpiece"
 
     #Static Prompt
-    prompt = "ghibli style, Joe Sacco, Moebius, Daniel Clowes, illustration, simple, beautiful, portrait, kind face, masterpiece"
+    prompt = "ghibli style, an illustration of a glass of water sitting on a table, a hand reaches for it."
 
     #Dynamic Prompt --this will use random selection, Mad Lib style, to make prompts
     
 
-    negative_prompt = 'bad anatomy, blurry, child, young, ugly, low quality, soft, soft blurry'
+    negative_prompt = 'bad anatomy, soft blurry'
 
 
     image = base(
@@ -65,7 +65,7 @@ while True:
 
 
 
-# output_type = latent is used for further processing, like, I am guessing a refiner. 
+# output_type = latent is used for further processing, I am guessing a refiner. 
 
 # prompt: A string or a list of strings specifying the text prompt(s) to guide the image generation.
 # num_inference_steps: The number of denoising steps.
