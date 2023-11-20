@@ -5,13 +5,13 @@ import TextComponent from './Content Components/TextComponent';
 import './styles.css';
 
 import { useFetchText } from './useFetchText'
-import { useFetchImages } from './useFetchImages'
+import { useFetchImageData } from './useFetchImageData'
 
 function InfiniteScrollComponent() {
 
   const [items, setItems] = useState([]);
   const { texts } = useFetchText()
-  const { images } = useFetchImages()
+  const { images } = useFetchImageData()
 
   
   const refreshItems= () => {
@@ -19,7 +19,7 @@ function InfiniteScrollComponent() {
     try {
       const newItems = [];
       for (let i = 0; i < 5; i++) {
-        const itemType = Math.floor(Math.random() * 1);
+        const itemType = Math.floor(Math.random() * 2);
         switch (itemType) {
           case 0: // Image
             if (images.length) {

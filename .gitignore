@@ -19,7 +19,7 @@
 /pythonserver/images2
 /pythonserver/text
 /pythonserver/autoutils/results
-
+/pythonserver/photos
 reportWebVitals
 /pythonserver/autoutils/model_notes.txt
 /pythonserver/autoutils/prompts.txt
@@ -33,3 +33,8 @@ reportWebVitals
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/database/images/
+/database/database.db 
+
+
