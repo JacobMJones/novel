@@ -5,6 +5,7 @@ from flask_cors import CORS, cross_origin
 
 app = Flask(__name__, static_folder='images')
 CORS(app, resources={r"/*": {"origins": "*"}})
+
 @app.route('/images/<filename>')
 def serve_image(filename):
     return send_from_directory(app.static_folder, filename)
@@ -13,6 +14,17 @@ def get_db_connection():
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
     return conn
+
+@app.route('/api/texts')
+@cross_origin(origins=["http://192.168.32.1:3000"], headers=["application/json"]) 
+def get_texts():
+    print('in get')
+    conn = get_db_connection()
+    texts = conn.execute('SELECT * FROM text_all').fetchall() 
+    conn.close()
+    response = jsonify([dict(row) for row in texts])
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+    return response
 
 # Function to create a table (if you need a specific table apart from the Excel import)
 def create_table():

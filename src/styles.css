@@ -3,12 +3,14 @@
     height: 80vh; /* or a fixed value */
 
     display: flex;
-    font-size: 5vh;
+    font-size: 3vh;
     justify-content: center;
-    align-items: center;
-    overflow: hidden; /* In case content overflows */
+    align-items: flex-start; /* Align items to the start of the container */
+    text-align: left; /* Align text to the left */
+   /* overflow: hidden; /* In case content overflows */
     color:white;
-    margin-top:20vh;
+    margin-top:10vh;
+    
   }
 
   .modal-backdrop {
@@ -31,7 +33,8 @@
     height: 50%;
   }
   .poemElement {
-    text-align: center;
+overflow: auto;
+    white-space: pre-wrap;
     font-family: 'Roboto', sans-serif; /* Make sure Roboto font is included in your project */
     font-weight: bold;
     margin: 25%;
@@ -41,6 +44,7 @@
 .memoryElement {
     text-align: left;
     margin-left: 5vw;
+    overflow: auto;
     font-size: smaller; /* Adjust the size as needed */
 }
 

@@ -74,12 +74,14 @@ function TextComponent({ item }) {
 
   // Function to render different elements based on subtype
   const renderContentBySubtype = () => {
+    console.log("Rendering content for subtype:", item.subtype, "Content:", item.content);
+
     switch (item.subtype) {
       case 'reminder':
         return <span className="reminderElement">{item.content}</span>;
       case 'memory':
         return <div className="memoryElement">{item.content}</div>;
-      case 'poem':
+      case 'rumi':
         return <p className="poemElement">{item.content}</p>;
       default:
         return <span>{item.content}</span>;

@@ -36,5 +36,7 @@ yarn-error.log*
 
 /database/images/
 /database/database.db 
+/database/tao.txt
+/database/rumi_poetry.xlsx
 
-
+/database/text

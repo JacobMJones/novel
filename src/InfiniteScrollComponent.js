@@ -41,14 +41,19 @@ function InfiniteScrollComponent() {
 
             }
             break;
-          case 1: // Text
-            if (texts.length) {
-              const randomIndex = Math.floor(Math.random() * texts.length);
-              const text = texts[randomIndex];
-              console.log('te', text)
+          case 1: // Text poetry
+          const filteredTexts = texts.filter(text => text.subtype === 'rumi' || text.subtype === 'tao');
+        
+
+            if (filteredTexts.length) {
+              const randomIndex = Math.floor(Math.random() * filteredTexts.length);
+              const text = filteredTexts[randomIndex];
+         // Extract the first sentence from the text
+              const firstSentence = text.text.split(/(?<=[.!?])\s/)[0];
+           
               newItems.push({
-                content: text.content,
-                type: text.type, subtype: text.subtype,
+                content: firstSentence,
+                type: 'text', text_type: text.type, subtype: text.subtype,
                 active: text.active,
                 tags: text.tags,
                 id: text.id

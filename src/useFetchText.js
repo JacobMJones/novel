@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import * as XLSX from 'xlsx';
 
 export function useFetchText() {
   
@@ -11,27 +10,17 @@ export function useFetchText() {
     const fetchText = async () => {
       setLoading(true);
       try {
-        // Replace this URL with the URL of your Flask server's route for downloading the Excel file
-        const fileUrl = 'http://192.168.0.19:5000/text_data.xlsx';
-        const textPath = 'http://192.168.0.19:5000/text/'
-        const response = await fetch(fileUrl);
-        const arrayBuffer = await response.arrayBuffer();
-        const workbook = XLSX.read(arrayBuffer, { type: 'buffer' });
-        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-        
-        // Exclude the first row which contains header data
-        const textItems = jsonData.slice(1).map((entry) => ({
-          id:entry[0],
-          type: entry[2],
-          subtype: entry[3],
-          content: entry[1],
-          votes:entry[4],
-          tags:entry[5],
-          active:entry[6],
-          textUrl:textPath + entry[1],
-        }));
-        setTexts(textItems);
+        const apiUrl = 'http://192.168.0.19:5000/api/texts';
+        const response = await fetch(apiUrl, {
+          method: 'GET'
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setTexts(data);
       } catch (error) {
         setError(error);
       } finally {
