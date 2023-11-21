@@ -9,7 +9,7 @@ export function useFetchImageData() {
     const fetchImages = async () => {
       setLoading(true);
       // Update this URL to your Flask app's endpoint
-      const dataUrl = 'http://192.168.0.19:5000/data'; 
+      const dataUrl = 'http://192.168.0.19:5000/image_data'; 
       const imagePath = 'http://192.168.0.19:5000/images/';
 
       try {
@@ -34,7 +34,7 @@ export function useFetchImageData() {
     };
 
     fetchImages();
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, []); 
 
   return { images, loading, error };
 }

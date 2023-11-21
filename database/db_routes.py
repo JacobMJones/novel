@@ -49,10 +49,10 @@ def import_excel():
 
 
 # Route to fetch all data from the excel_data table
-@app.route('/data', methods=['GET'])
+@app.route('/image_data', methods=['GET'])
 def get_data():
     conn = get_db_connection()
-    data = conn.execute('SELECT * FROM excel_data').fetchall()
+    data = conn.execute('SELECT * FROM image_data').fetchall()
     conn.close()
     return jsonify([dict(row) for row in data])
 
