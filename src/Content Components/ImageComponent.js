@@ -12,9 +12,9 @@ function ImageComponent({ item, alt }) {
   const handleInactivate = () => {
     console.log("Inactivate action", item);
   
-    fetch('http://localhost:5000/update_excel', {
+    fetch('http://localhost:5000/deactivate_image', {
       method: 'POST',
-      headers: {
+      headers: {  
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

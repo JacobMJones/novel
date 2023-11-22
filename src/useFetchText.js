@@ -10,7 +10,7 @@ export function useFetchText() {
     const fetchText = async () => {
       setLoading(true);
       try {
-        const apiUrl = 'http://192.168.0.19:5000/api/texts';
+        const apiUrl = 'http://192.168.0.19:5000/texts';
         const response = await fetch(apiUrl, {
           method: 'GET'
         });

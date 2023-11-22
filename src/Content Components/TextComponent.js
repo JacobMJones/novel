@@ -31,7 +31,7 @@ function TextComponent({ item }) {
     if (e) {
       e.stopPropagation();
     }
-    fetch('http://localhost:5000/update_excel', {
+    fetch('http://localhost:5000/deactivate_text', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -74,7 +74,6 @@ function TextComponent({ item }) {
 
   // Function to render different elements based on subtype
   const renderContentBySubtype = () => {
-    console.log("Rendering content for subtype:", item.subtype, "Content:", item.content);
 
     switch (item.subtype) {
       case 'reminder':
