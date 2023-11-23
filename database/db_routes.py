@@ -26,7 +26,7 @@ def deactivate():
         if id is not None:
             conn = sqlite3.connect('database.db')
             try:
-                conn.execute('UPDATE new_image_data SET active = 0 WHERE id = ?', (id,))
+                conn.execute('UPDATE image_data SET active = 0 WHERE id = ?', (id,))
                 conn.commit()
                 print(f"Deactivated data: {data}")
                 response = {'status': 'success', 'message': 'Image deactivated'}
@@ -58,7 +58,7 @@ def get_texts():
 @app.route('/image_data', methods=['GET'])
 def get_data():
     conn = get_db_connection()
-    data = conn.execute('SELECT * FROM new_image_data').fetchall()
+    data = conn.execute('SELECT * FROM image_data').fetchall()
     conn.close()
     return jsonify([dict(row) for row in data])
 

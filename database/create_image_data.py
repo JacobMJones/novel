@@ -3,6 +3,11 @@ import sqlite3
 import uuid
 from PIL import Image, UnidentifiedImageError
 
+
+
+######### SCANS IMAGES folder and creates table
+
+
 # Path to your images folder
 images_folder = 'images'
 
@@ -12,7 +17,7 @@ cursor = conn.cursor()
 
 # Create the new table
 cursor.execute('''
-    CREATE TABLE IF NOT EXISTS new_image_data (
+    CREATE TABLE IF NOT EXISTS image_data (
         id TEXT PRIMARY KEY,
         file TEXT,
         width REAL,
@@ -20,6 +25,8 @@ cursor.execute('''
         size REAL,
         format TEXT,
         type TEXT,
+        subtype TEXT,
+        tags TEXT,
         active INTEGER
     )
 ''')
@@ -46,11 +53,11 @@ for item in all_items:
 
             # Inserting the record into the new table
             cursor.execute(
-                "INSERT INTO new_image_data (id, file, width, height, size, format, type, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                (unique_id, item, width, height, size, format, 'image', 1)
+                "INSERT INTO image_data (id, file, width, height, size, format, type, subtype, tags, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (unique_id, item, width, height, size, format, 'image', 'art', 'painting, surreal, Piet Mondrian', 1)
             )
 
-            print(f"Added {item} to new_image_data with ID {unique_id}.")
+            print(f"Added {item} to image_data with ID {unique_id}.")
 
         except UnidentifiedImageError as e:
             print(f"Error processing file {item}: {e}")

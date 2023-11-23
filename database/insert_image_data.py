@@ -11,7 +11,7 @@ conn = sqlite3.connect('database.db')
 cursor = conn.cursor()
 
 # Retrieve the list of files already in the database
-cursor.execute('SELECT file FROM new_image_data')
+cursor.execute('SELECT file FROM image_data')
 existing_files = {row[0] for row in cursor.fetchall()}
 
 # List all files in the images folder
@@ -36,11 +36,11 @@ for item in all_items:
 
             # Inserting the record into the new table
             cursor.execute(
-                "INSERT INTO new_image_data (id, file, width, height, size, format, type, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO image_data (id, file, width, height, size, format, type, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                 (unique_id, item, width, height, size, format, 'image', 1)
             )
 
-            print(f"Added {item} to new_image_data with ID {unique_id}.")
+            print(f"Added {item} to image_data with ID {unique_id}.")
 
         except UnidentifiedImageError as e:
             print(f"Error processing file {item}: {e}")
