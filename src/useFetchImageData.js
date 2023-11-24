@@ -10,7 +10,7 @@ export function useFetchImageData() {
       setLoading(true);
       // Update this URL to your Flask app's endpoint
       const dataUrl = 'http://192.168.0.19:5000/image_data'; 
-      const imagePath = 'http://192.168.0.19:5000/images/';
+      const path = 'http://192.168.0.19:5000/';
 
       try {
         const response = await fetch(dataUrl);
@@ -22,7 +22,7 @@ export function useFetchImageData() {
         // Map the JSON data to your images format
         const activeImageItems = jsonData.filter(entry => entry.active === 1).map(entry => ({
           ...entry,
-          imageUrl: imagePath + entry.file,
+          imageUrl: path + entry.path,
         }));
 
         setImages(activeImageItems);
