@@ -108,7 +108,6 @@ function ImageComponent({ item, alt }) {
             style={{marginRight: '10px'}}
           />
         <button onClick={handleAddTag}>Add tag</button>
-        <button onClick={handleCloseCellModal}>Add tag</button>
         <p/>
         <button onClick={handleCloseCellModal}>Close</button>
       </CellModal>

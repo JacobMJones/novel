@@ -1,22 +1,24 @@
-import requests
-from PIL import Image
-from transformers import BlipProcessor, BlipForConditionalGeneration
+import tensorflow as tf
+from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2, preprocess_input, decode_predictions
+from tensorflow.keras.preprocessing import image
+import numpy as np
 
-processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-large")
-model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-large").to("cuda")
+# Load the pre-trained MobileNetV2 model
+model = MobileNetV2(weights='imagenet')
 
-img_url = 'ewe ghana women in textile and jugs.jpg' 
-raw_image = Image.open(requests.get(img_url, stream=True).raw).convert('RGB')
+def recognize_objects(image_path):
+    # Load and preprocess the image
+    img = image.load_img(image_path, target_size=(224, 224))
+    img_array = image.img_to_array(img)
+    img_array = np.expand_dims(img_array, axis=0)
+    img_array = preprocess_input(img_array)
 
-# conditional image captioning
-text = "a photography of"
-inputs = processor(raw_image, text, return_tensors="pt").to("cuda")
+    # Make predictions
+    predictions = model.predict(img_array)
 
-out = model.generate(**inputs)
-print(processor.decode(out[0], skip_special_tokens=True))
+    # Decode and print the predictions
+    print('Predictions:', decode_predictions(predictions, top=3)[0])
 
-# unconditional image captioning
-inputs = processor(raw_image, return_tensors="pt").to("cuda")
-
-out = model.generate(**inputs)
-print(processor.decode(out[0], skip_special_tokens=True))
+# Replace 'path_to_your_image.jpg' with the path to your image
+image_path = '1.jpg'
+recognize_objects(image_path)
