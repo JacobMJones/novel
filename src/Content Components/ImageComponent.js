@@ -4,6 +4,7 @@ import CellModal from './CellModal'; // Import or define your Modal component
 
 function ImageComponent({ item, alt }) {
   const [isCellModalOpen, setIsCellModalOpen] = useState(false);
+  const [inputTag, setInputTag] = useState('');
 
   const handleImageClick = () => {
     setIsCellModalOpen(true);
@@ -47,7 +48,38 @@ function ImageComponent({ item, alt }) {
   const handleCloseCellModal = () => {
     setIsCellModalOpen(false);
   };
+  const handleTagChange = (event) => {
+    setInputTag(event.target.value); // Only update the input value
+  };
 
+  const handleAddTag = () => {
+    fetch('http://localhost:5000/add_tag', {
+      method: 'POST',
+      headers: {  
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: item.id,
+        tag: inputTag // Use the state variable
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Tag added:', data);
+      setIsCellModalOpen(false);
+    })
+    .catch(error => {
+      console.error('Error adding tag:', error);
+    });
+    // Optionally reset the inputTag state here if needed
+  };
+
+  
   return (
     <div className='sharedSize'>
       <img
@@ -67,6 +99,16 @@ function ImageComponent({ item, alt }) {
         <button style={{fontSize:'5vw'}} onClick={handleInactivate}>Inactivate</button>
         <p/>
         <button onClick={handleGenerateCellModal}>Generate</button>
+        <p/>
+        <input 
+            type="text" 
+            value={inputTag} // Use the state variable
+            onChange={handleTagChange}
+            placeholder="Enter tag"
+            style={{marginRight: '10px'}}
+          />
+        <button onClick={handleAddTag}>Add tag</button>
+        <button onClick={handleCloseCellModal}>Add tag</button>
         <p/>
         <button onClick={handleCloseCellModal}>Close</button>
       </CellModal>

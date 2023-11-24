@@ -62,6 +62,43 @@ def get_data():
     conn.close()
     return jsonify([dict(row) for row in data])
 
+# Route to add tag
+@app.route('/add_tag', methods=['POST'])
+def add_tag():
+
+    data = request.get_json()
+    if data:
+        id = data.get('id')
+        new_tag = data.get('tag')
+        print(id, new_tag)
+        if id is not None and new_tag:
+            conn = get_db_connection()
+            try:
+                # Fetch current tags
+                current_tags = conn.execute('SELECT tags FROM image_data WHERE id = ?', (id,)).fetchone()
+                if current_tags:
+                    updated_tags = f"{current_tags['tags']},{new_tag}"
+                    # Update record with new tags
+                    conn.execute('UPDATE image_data SET tags = ? WHERE id = ?', (updated_tags, id))
+                    conn.commit()
+                    response = {'status': 'success', 'message': 'Tag added'}
+                    status_code = 200
+                else:
+                    response = {'status': 'error', 'message': 'Record not found'}
+                    status_code = 404
+            except sqlite3.Error as e:
+                response = {'status': 'error', 'message': f'Database error: {e}'}
+                status_code = 500
+            finally:
+                conn.close()
+        else:
+            response = {'status': 'error', 'message': 'Invalid ID or tag'}
+            status_code = 400
+    else:
+        response = {'status': 'error', 'message': 'No data received'}
+        status_code = 400
+
+    return jsonify(response), status_code
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

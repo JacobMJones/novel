@@ -63,7 +63,7 @@ for dirpath, dirnames, files in os.walk(images_folder):
             folders = relative_path.split(os.sep)[:-1]  # Excludes the file name
 
             # Creating tags from folder names, including 'art' and 'africa' by default
-            tags = 'manually added'
+            tags = 'manually added, 19th'
             tags += ''.join([f', {folder}' for folder in folders if folder])
 
             # Inserting the record into the table
