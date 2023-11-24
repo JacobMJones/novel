@@ -133,7 +133,6 @@ for dirpath, dirnames, files in os.walk(images_folder):
                 "INSERT INTO image_data (id, file, width, height, size, format, type, subtype, tags, path, active, color, color_rgb) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (unique_id, file, width, height, size, format, 'image', 'art', tags, relative_path, 1, color_name, str(dominant_color))
             )
-
             print(f"Added {file} to image_data with ID {unique_id}, path: {relative_path}.")
 
         except UnidentifiedImageError as e:
