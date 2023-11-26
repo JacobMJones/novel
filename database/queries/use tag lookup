@@ -1,0 +1,5 @@
+SELECT image_data.*
+FROM image_data
+JOIN image_tags ON image_data.id = image_tags.image_id
+JOIN tags ON image_tags.tag_id = tags.tag_id
+WHERE tags.tag_name = 'winter';

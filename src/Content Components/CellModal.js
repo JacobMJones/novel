@@ -10,7 +10,7 @@ function CellModal({ children, onClose }) {
     }
   return (
     <div className="modal-backdrop" onClick={handleBackdropClick}>
-      <div className="modal-content">
+      <div className="modal-content" style={{color:'black'}}>
         {children}
         {/* <button onClick={onClose}>Close Modal</button> */}
       </div>

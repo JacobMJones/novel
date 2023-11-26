@@ -12,21 +12,24 @@ function InfiniteScrollComponent() {
   const [items, setItems] = useState([]);
   const { texts } = useFetchText()
   const { images } = useFetchImageData()
+  const [userTags, setUserTags] = useState(['ai'])
 
-  
-  const refreshItems= () => {
-    console.log(items)
+  const refreshItems = () => {
+    console.log(userTags)
     try {
       const newItems = [];
+      const filteredImages = images.filter(image => 
+        image.tags.split(',').some(tag => userTags.includes(tag.trim())) && image.active === 1
+      );
+      
       for (let i = 0; i < 5; i++) {
-        const itemType = Math.floor(Math.random() * 2);
+        const itemType = Math.floor(Math.random() * 1);
         switch (itemType) {
           case 0: // Image
-            if (images.length) {
-              const randomIndex = Math.floor(Math.random() * images.length);
-              const image = images[randomIndex];
-              console.log('image', image)
-              if(image.active = 1){
+            if (filteredImages.length) {
+              const randomIndex = Math.floor(Math.random() * filteredImages.length);
+              const image = filteredImages[randomIndex];
+              if (image.active === 1) {
                 newItems.push({
                   type: 'image',
                   file: image.file,
@@ -34,23 +37,25 @@ function InfiniteScrollComponent() {
                   tags: image.tags,
                   votes: image.votes,
                   active: image.active,
-                  id:image.id,
-                  imageUrl:image.imageUrl
+                  id: image.id,
+                  imageUrl: image.imageUrl,
+                  color: image.color,
+                  color_rgb: image.color_rgb
                 });
               }
 
             }
             break;
           case 1: // Text poetry
-          const filteredTexts = texts.filter(text => text.subtype === 'rumi' || text.subtype === 'tao');
-        
+            const filteredTexts = texts.filter(text => text.subtype === 'rumi' || text.subtype === 'tao');
+
 
             if (filteredTexts.length) {
               const randomIndex = Math.floor(Math.random() * filteredTexts.length);
               const text = filteredTexts[randomIndex];
-         // Extract the first sentence from the text
+              // Extract the first sentence from the text
               const firstSentence = text.text.split(/(?<=[.!?])\s/)[0];
-           
+
               newItems.push({
                 content: firstSentence,
                 type: 'text', text_type: text.type, subtype: text.subtype,
@@ -82,6 +87,9 @@ function InfiniteScrollComponent() {
       }
     }
   };
+  const formatColor = (colorRgb, alpha) => {
+    return colorRgb ? `rgba(${colorRgb.replace(/[\(\)]/g, '')}, ${alpha})` : 'rgba(0,0,0, 1)';
+  };
 
   return (
     <div>
@@ -90,12 +98,23 @@ function InfiniteScrollComponent() {
         next={refreshItems}
         hasMore={true}
         loader={<h4>Loading...</h4>}
+
       >
-        {items.map((item, index) => (
-          <div key={index}>
-            {randomComponent(item, index)}
-          </div>
-        ))}
+        {items.map((item, index) => {
+          const formattedColor = formatColor(item.color_rgb);
+          return (
+            <div style={{
+              padding: '10vh',
+              background: `linear-gradient(to bottom, white, ${formatColor(item.color_rgb, .2)} 30%,  ${formatColor(item.color_rgb, .4)} 50%, ${formatColor(item.color_rgb, .2)} 70%, white)`
+            }} key={index}>
+              <div key={index}>
+                {randomComponent(item, index)}
+              </div>
+            </div>
+          )
+        }
+
+        )}
 
       </InfiniteScroll>
     </div>

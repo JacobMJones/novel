@@ -1,0 +1,12 @@
+SELECT *
+  FROM tags;
+
+ALTER TABLE tags
+ADD COLUMN texts_with_tag INTEGER NOT NULL DEFAULT 0;
+
+UPDATE tags
+SET images_with_tag = (SELECT COUNT(*)
+                       FROM image_tags
+                       WHERE image_tags.tag_id = tags.tag_id);
+                       
+select * from image_tags
