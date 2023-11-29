@@ -42,7 +42,7 @@ def serve_image(filename):
     return send_from_directory(app.static_folder, filename)
 # Function to get a database connection
 def get_db_connection():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('all.db')
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -81,7 +81,7 @@ def deactivate():
 def get_texts():
     print('in get')
     conn = get_db_connection()
-    texts = conn.execute('SELECT * FROM text_all').fetchall() 
+    texts = conn.execute('SELECT * FROM me_text').fetchall() 
     conn.close()
     return jsonify([dict(row) for row in texts])
 

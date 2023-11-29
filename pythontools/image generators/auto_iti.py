@@ -12,7 +12,7 @@ pipe.safety_checker = None
 pipe = pipe.to("cuda")
 
 # Directory path for the images folder
-images_folder = "../photos"
+images_folder = "../../database/images/new"
 
 # Loop over the parameter combinations
 while True:

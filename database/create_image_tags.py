@@ -7,8 +7,8 @@ cursor = conn.cursor()
 # Create the image_tags table if it does not exist
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS image_tags (
-  image_id INTEGER NOT NULL,
-  tag_id INTEGER NOT NULL,
+  image_id TEXT NOT NULL,
+  tag_id TEXT NOT NULL,
   FOREIGN KEY (image_id) REFERENCES image_data(id),
   FOREIGN KEY (tag_id) REFERENCES tags(tag_id),
   PRIMARY KEY (image_id, tag_id)

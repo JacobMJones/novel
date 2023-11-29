@@ -8,7 +8,7 @@
 
 # testing
 /coverage
-
+/database/all.db
 /src/setupTests.js
 # production
 /build

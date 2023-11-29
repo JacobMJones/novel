@@ -13,15 +13,15 @@ base.safety_checker = None
 base.to(torch_device="cuda", torch_dtype=torch.float32)
 
 #read excel file, used for prompt generation
-excel_path = os.path.join(os.path.dirname(__file__), '..', 'text_data.xlsx')
-dataframe = pd.read_excel(excel_path)
+# excel_path = os.path.join(os.path.dirname(__file__), '..', 'text_data.xlsx')
+# dataframe = pd.read_excel(excel_path)
 
 #set folder path
-folder_path = '../images'
+folder_path = '../../database/images/new/'
 
 #set parameters
-n_steps = 80
-high_noise_frac = 0.75
+n_steps = 60
+high_noise_frac = 0.85
 
 while True:
 
@@ -29,12 +29,11 @@ while True:
     #prompt = random.choice(dataframe['content'].dropna()) + ", Joe Sacco,Moebius, illustration, simple, beautiful, masterpiece"
 
     #Static Prompt
-    prompt = "ghibli style, an illustration of a glass of water sitting on a table, a hand reaches for it."
-
+    prompt = "ghibili style, a big finger, close up"
     #Dynamic Prompt --this will use random selection, Mad Lib style, to make prompts
     
 
-    negative_prompt = 'bad anatomy, soft blurry'
+    negative_prompt = 'bad anatomy, soft blurry, sad, dark, violent, evil, symetery, repeating'
 
 
     image = base(

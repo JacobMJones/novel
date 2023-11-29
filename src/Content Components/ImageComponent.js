@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import '../styles.css';
 import CellModal from './CellModal'; // Import or define your Modal component
 
-function ImageComponent({ item, alt }) {
+function ImageComponent({ item, alt, onImageClick }) {
   const [isCellModalOpen, setIsCellModalOpen] = useState(false);
   const [inputTag, setInputTag] = useState('');
 
-  const handleImageClick = () => {
+  const handleImageClick = (e) => {
+    e.stopPropagation(); // Stop propagation first
+    onImageClick(e); // Now call the function passed from the parent with the event
     setIsCellModalOpen(true);
   };
 
@@ -96,13 +98,11 @@ function ImageComponent({ item, alt }) {
           cursor: 'pointer',
         }}
       />
+      <button onClick={()=> handleInactivate()}>Inactivate</button>
       {isCellModalOpen && (
         <CellModal onClose={handleCloseCellModal}>
-          <button style={{ fontSize: '5vw' }} onClick={handleInactivate}>Inactivate</button>
-          <p />
 
-          <button onClick={handleGenerateCellModal}>Generate</button>
-          <p />
+
           <input
             type="text"
             value={inputTag} // Use the state variable
@@ -111,10 +111,15 @@ function ImageComponent({ item, alt }) {
             style={{ marginRight: '10px' }}
           />
           <p />
+          <button style={{ fontSize: '2vw' }} onClick={handleAddTag}>Add tag</button>
           <div>Tags:{item.tags}</div>
-          <button onClick={handleAddTag}>Add tag</button>
+          <p/>
+          <button style={{ fontSize: '2vw' }}  onClick={handleGenerateCellModal}>Generate</button>
+             
           <p />
-          <button onClick={handleCloseCellModal}>Close</button>
+          <button style={{ fontSize: '2vw' }} onClick={handleInactivate}>Inactivate</button>
+          <p/>
+          <button style={{ fontSize: '2vw' }} onClick={handleCloseCellModal}>Close</button>
         </CellModal>
       )}
     </div>

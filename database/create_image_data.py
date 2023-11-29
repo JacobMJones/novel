@@ -42,7 +42,7 @@ images_folder = 'images'
 images_folder = os.path.normpath(images_folder)
 
 # Connect to SQLite database
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect('all.db')
 cursor = conn.cursor()
 
 # Create the table with necessary fields
@@ -64,37 +64,34 @@ cursor.execute('''
     )
 ''')
 
-def process_tags(cursor, tags, image_id):
-    for tag in tags.split(','):
-        tag = tag.strip()
-        try:
-            cursor.execute("SELECT tag_id, images_with_tag FROM tags WHERE tag_name = ?", (tag,))
-            result = cursor.fetchone()
+# def process_tags(cursor, tags, image_id):
+#     for tag in tags.split(','):
+#         tag = tag.strip()
+#         try:
+#             cursor.execute("SELECT tag_id, images_with_tag FROM tags WHERE tag_name = ?", (tag,))
+#             result = cursor.fetchone()
 
-            if result:
-                tag_id, count = result
-                cursor.execute("UPDATE tags SET images_with_tag = ? WHERE tag_id = ?", (count + 1, tag_id))
-            else:
-                tag_id = str(uuid.uuid4())
-                # Print debugging information for insertion
-                print(f"Inserting new tag: tag_id={tag_id}, tag_name={tag}")
-                cursor.execute("INSERT INTO tags (tag_id, tag_name, image_has_tag, images_with_tag) VALUES (?, ?, ?, ?)",
-                               (tag_id, tag, 1, 1))
+#             if result:
+#                 tag_id, count = result
+#                 cursor.execute("UPDATE tags SET images_with_tag = ? WHERE tag_id = ?", (count + 1, tag_id))
+#             else:
+#                 tag_id = str(uuid.uuid4())
+#                 # Print debugging information for insertion
+#                 print(f"Inserting new tag: tag_id={tag_id}, tag_name={tag}")
+#                 cursor.execute("INSERT INTO tags (tag_id, tag_name, image_has_tag, images_with_tag) VALUES (?, ?, ?, ?)",
+#                                (tag_id, tag, 1, 1))
 
-            # Check if the image-tag pair already exists in image_tags
-            cursor.execute("SELECT COUNT(*) FROM image_tags WHERE image_id = ? AND tag_id = ?", (image_id, tag_id))
-            if cursor.fetchone()[0] == 0:
-                cursor.execute("INSERT INTO image_tags (image_id, tag_id) VALUES (?, ?)", (image_id, tag_id))
-            else:
-                print(f"Image-tag pair already exists: image_id={image_id}, tag_id={tag_id}")
+#             # Check if the image-tag pair already exists in image_tags
+#             cursor.execute("SELECT COUNT(*) FROM image_tags WHERE image_id = ? AND tag_id = ?", (image_id, tag_id))
+#             if cursor.fetchone()[0] == 0:
+#                 cursor.execute("INSERT INTO image_tags (image_id, tag_id) VALUES (?, ?)", (image_id, tag_id))
+#             else:
+#                 print(f"Image-tag pair already exists: image_id={image_id}, tag_id={tag_id}")
 
-        except sqlite3.IntegrityError as e:
-            print(f"Integrity Error for tag '{tag}': {e}")
-        except sqlite3.Error as e:
-            print(f"Database Error for tag '{tag}': {e}")
-
-
-
+#         except sqlite3.IntegrityError as e:
+#             print(f"Integrity Error for tag '{tag}': {e}")
+#         except sqlite3.Error as e:
+#             print(f"Database Error for tag '{tag}': {e}")
 
 # Function to check if the image already exists in the database
 def image_exists(cursor, file_path):
@@ -178,10 +175,10 @@ for dirpath, dirnames, files in os.walk(images_folder):
                 (unique_id, file, width, height, size, format, 'image', 'art', tags, relative_path, 1, color_name, str(dominant_color))
             )
             print(f"Added {file} to image_data with ID {unique_id}, path: {relative_path}.")
-            process_tags(cursor, tags, unique_id)
+            # process_tags(cursor, tags, unique_id)
         except UnidentifiedImageError as e:
             print(f"Error processing file {file}: {e}")
-        process_tags(cursor, tags, unique_id)
+        # process_tags(cursor, tags, unique_id)
 # Commit the changes and close the database connection
 conn.commit()
 conn.close()

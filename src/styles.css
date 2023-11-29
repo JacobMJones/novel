@@ -61,3 +61,10 @@
   letter-spacing: 1.5px;
   color: black;
 }
+
+.defaultStyle {
+  text-align: center;
+  font-size: 2vw;
+  letter-spacing: 1.5px;
+  color: black;
+}

@@ -7,7 +7,7 @@ model_id = "stabilityai/stable-diffusion-xl-base-1.0"
 adapter_id = "latent-consistency/lcm-lora-sdxl"
 
 # Set folder path
-folder_path = '../images'
+folder_path = '../../database/images/new/'
 
 pipe = AutoPipelineForText2Image.from_pretrained(model_id, torch_dtype=torch.float16, variant="fp16")
 pipe.scheduler = LCMScheduler.from_config(pipe.scheduler.config)
@@ -19,8 +19,8 @@ pipe.load_lora_weights(adapter_id)
 pipe.fuse_lora()
 
 while True:
-    prompt = "A serene landscape in thai rice paddies with a clear blue sky, with a small figure of a person standing in the distance, appearing small, walking across the rice paddy wall. The focus is on the vast, open space and the sense of solitude."
-    image = pipe(prompt=prompt, num_inference_steps=4, guidance_scale=.3).images[0]
+    prompt = "An illustration of a man looking in a mirror and seeing a different man reflected."
+    image = pipe(prompt=prompt, num_inference_steps=7, guidance_scale=.8).images[0]
     file_name = str(uuid.uuid4()) + '.png'
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
